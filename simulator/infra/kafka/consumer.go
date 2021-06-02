@@ -8,32 +8,33 @@ import (
 )
 
 type KafkaConsumer struct {
-	MsgChannel chan *ckafka.Message
+	MsgChan chan *ckafka.Message
 }
 
-func NewKafkaConsumer(msgChannel chan *ckafka.Message) *KafkaConsumer {
+// NewKafkaConsumer creates a new KafkaConsumer struct with its message channel as dependency
+func NewKafkaConsumer(msgChan chan *ckafka.Message) *KafkaConsumer {
 	return &KafkaConsumer{
-		MsgChannel: msgChannel,
+		MsgChan: msgChan,
 	}
 }
 
 func(k *KafkaConsumer) Consume(){
 	configMap := &ckafka.ConfigMap{
 		"bootstrap.servers": os.Getenv("KafkaBootstrapServers"),
-		"group.id":          os.Getenv("KafkaCOnsumerGroupId"),
+		"group.id":          os.Getenv("KafkaConsumerGroupId"),
 	}
 	c, err := ckafka.NewConsumer(configMap)
 	if err != nil {
 		log.Fatalf("ERROR consuming kafka message:" + err.Error())
 	}
-	topics := []string{os.Getenv(KafkaReadTopic)}
+	topics := []string{os.Getenv("KafkaReadTopic")}
 	c.SubscribeTopics(topics, nil)
 	fmt.Println("-- Kafka consumer has been started --")
 
 	for {
 		msg, err := c.ReadMessage(-1)
 		if err == nil {
-			k.MsgChannel <- msg
+			k.MsgChan <- msg
 		}
 	}
 }
