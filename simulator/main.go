@@ -5,7 +5,7 @@ import (
 	"log"
 	"github.com/moroleandro/uber-stack/simulator/infra/kafka"
 	"github.com/joho/godotenv"
-	kafka2 "github.com/moroleandro/uber-stack/application/kafka"
+	kafka2 "github.com/moroleandro/uber-stack/simulator/application/kafka"
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 )
 
