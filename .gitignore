@@ -1,3 +1,5 @@
 simulator/.idea
 simulator/.vscode
 simulator/.env
+simulator/docker/kafka/data/*
+simulator/docker/kafka/es01/*
