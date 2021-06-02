@@ -10,7 +10,7 @@ import (
 	"encoding/json"
 )
 
-func Producer(msg *ckafka.Message) {
+func Produce(msg *ckafka.Message) {
 	producer := kafka.NewKafkaProducer()
 	route := route2.NewRoute()
 	json.Unmarshal(msg.Value, &route)
